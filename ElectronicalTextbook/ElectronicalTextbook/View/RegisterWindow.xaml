@@ -1,0 +1,71 @@
+﻿<Window x:Class="ElectronicalTextbook.View.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElectronicalTextbook.View"
+        mc:Ignorable="d"
+        Title="RegisterWindow" Height="450" Width="644.479">
+    <Window.Resources>
+        <ControlTemplate x:Name="passwordContainer" TargetType="ContentControl" x:Key="passwordFieldTemplate">
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" ></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="field" Grid.Column="0"></TextBlock>
+                <PasswordBox x:Name="value" Grid.Column="1"></PasswordBox>
+                <TextBlock x:Name="error" Grid.Column="2" Foreground="Red" FontWeight="Bold"></TextBlock>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Name="fieldContainer" TargetType="ContentControl" x:Key="fieldTemplate">
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" ></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="field" Grid.Column="0"></TextBlock>
+                <TextBox x:Name="value" Grid.Column="1"></TextBox>
+                <TextBlock x:Name="error" Grid.Column="2" Foreground="Red" FontWeight="Bold"></TextBlock>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel x:Name="common">
+            <ContentControl x:Name="login" Template="{StaticResource fieldTemplate}"></ContentControl>
+            <ContentControl x:Name="lastname" Template="{StaticResource fieldTemplate}"></ContentControl>
+            <ContentControl x:Name="name" Template="{StaticResource fieldTemplate}"></ContentControl>
+            <ContentControl x:Name="surname" Template="{StaticResource fieldTemplate}"></ContentControl>
+            <ContentControl x:Name="sex" Template="{StaticResource fieldTemplate}"></ContentControl>
+        </StackPanel>
+        <StackPanel x:Name="specified">
+            <ContentControl x:Name="password" Template="{StaticResource passwordFieldTemplate}"></ContentControl>
+            <ContentControl x:Name="confirmPassword" Template="{StaticResource passwordFieldTemplate}"></ContentControl>
+        </StackPanel>
+        <StackPanel x:Name="passwordArea">
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" ></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" >Поле:</TextBlock>
+                <TextBox Grid.Column="1" ></TextBox>
+                <TextBlock Grid.Column="2" Foreground="Red" FontWeight="Bold"></TextBlock>
+            </Grid>
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" ></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" >Поле:</TextBlock>
+                <TextBox Grid.Column="1" ></TextBox>
+                <TextBlock Grid.Column="2" Foreground="Red" FontWeight="Bold"></TextBlock>
+            </Grid>
+        </StackPanel>
+        <Button x:Name="registerButton">Зарегистрировать</Button>
+    </StackPanel>
+</Window>

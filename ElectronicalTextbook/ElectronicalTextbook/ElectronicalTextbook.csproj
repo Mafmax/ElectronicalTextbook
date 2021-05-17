@@ -55,6 +55,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DataBaseProcessor.cs" />
+    <Compile Include="Model\Supported\PasswordChecker.cs" />
+    <Compile Include="ViewModel\AdminPasswordDialogViewModel.cs" />
+    <Compile Include="ViewModel\Admin\AdminFirstPageViewModel.cs" />
+    <Compile Include="ViewModel\Abstract\CalledViewModel.cs" />
+    <Compile Include="ViewModel\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModel\Abstract\DialogViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Abstract\ViewModel.cs" />
+    <Compile Include="ViewModel\RegisterChoiceViewModel.cs" />
+    <Compile Include="ViewModel\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\Student\StudentFirstPageViewModel.cs" />
+    <Compile Include="ViewModel\Student\StudentRegisterViewModel.cs" />
+    <Compile Include="ViewModel\Teacher\TeacherFirstPageViewModel.cs" />
+    <Compile Include="View\AdminPasswordDialogWindow.xaml.cs">
+      <DependentUpon>AdminPasswordDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\FirstPageWindow.xaml.cs">
+      <DependentUpon>FirstPageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChangePasswordWindow.xaml.cs">
+      <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegisterChoiceWindow.xaml.cs">
+      <DependentUpon>RegisterChoiceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegisterWindow.xaml.cs">
+      <DependentUpon>RegisterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Student\StudentFirstPageWindow.xaml.cs">
+      <DependentUpon>StudentFirstPageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Teacher\TeacherFirstPageWindow.xaml.cs">
+      <DependentUpon>TeacherFirstPageWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +102,34 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AdminPasswordDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\FirstPageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegisterChoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Student\StudentFirstPageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Teacher\TeacherFirstPageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -94,5 +157,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

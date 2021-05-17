@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectronicalTextbook"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Система &quot;Электронный учебник&quot;" Height="450" Width="800">
+  
+    <Grid  DockPanel.Dock="Left" Background="Aqua">
+        <Button x:Name="enterBtn" Content="Войти" HorizontalAlignment="Left" Margin="348,296,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="loginTxt" TabIndex="0" HorizontalAlignment="Left" Height="23" Margin="326,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox x:Name="passwordTxt" TabIndex="1" HorizontalAlignment="Left" Margin="326,245,0,0" VerticalAlignment="Top" Width="120" Height="23"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="368,171,0,0" TextWrapping="Wrap" Text="Логин" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="368,224,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top"/>
+        <Button x:Name="registerBtn" IsTabStop="False" Content="Новый пользователь" HorizontalAlignment="Left" Margin="652,10,0,0" VerticalAlignment="Top" Width="130"/>
+        <Button x:Name="passwordRecoveryBtn" IsTabStop="False" Content="Забыли пароль?" HorizontalAlignment="Left" Margin="652,35,0,0" VerticalAlignment="Top" Width="130"/>
+        <Button x:Name="adminBtn" IsTabStop="False" Content="Сменить системный пароль" HorizontalAlignment="Left" Margin="615,389,0,0" VerticalAlignment="Top" Width="167"/>
+        <TextBlock x:Name="errorText" Visibility="Hidden" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Left" Margin="303,273,0,0" TextWrapping="Wrap" Text="Неверный логин или пароль" VerticalAlignment="Top" Width="174"/>
     </Grid>
 </Window>
