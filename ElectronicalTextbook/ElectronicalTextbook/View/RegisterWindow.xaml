@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="RegisterWindow" Height="450" Width="644.479">
     <Window.Resources>
+        <ControlTemplate x:Name="choiceFieldContainer" TargetType="ContentControl" x:Key="choiceFieldTemplate">
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" ></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="field" Grid.Column="0"></TextBlock>
+                <ComboBox x:Name="value" Grid.Column="1"></ComboBox>
+                <TextBlock x:Name="error" Grid.Column="2" Foreground="Red" FontWeight="Bold"></TextBlock>
+            </Grid>
+        </ControlTemplate>
         <ControlTemplate x:Name="passwordContainer" TargetType="ContentControl" x:Key="passwordFieldTemplate">
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
@@ -35,10 +47,10 @@
     <StackPanel>
         <StackPanel x:Name="common">
             <ContentControl x:Name="login" Template="{StaticResource fieldTemplate}"></ContentControl>
-            <ContentControl x:Name="lastname" Template="{StaticResource fieldTemplate}"></ContentControl>
+            <ContentControl x:Name="lastname" Template="{StaticResource fieldTemplate}" Content=""></ContentControl>
             <ContentControl x:Name="name" Template="{StaticResource fieldTemplate}"></ContentControl>
             <ContentControl x:Name="surname" Template="{StaticResource fieldTemplate}"></ContentControl>
-            <ContentControl x:Name="sex" Template="{StaticResource fieldTemplate}"></ContentControl>
+            <ContentControl x:Name="sex" Template="{StaticResource choiceFieldTemplate}"></ContentControl>
         </StackPanel>
         <StackPanel x:Name="specified">
             <ContentControl x:Name="password" Template="{StaticResource passwordFieldTemplate}"></ContentControl>

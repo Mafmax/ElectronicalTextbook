@@ -21,5 +21,10 @@ namespace ElectronicalTextbook
         {
             throw new NotImplementedException();
         }
+
+        internal static string[] GetSpecialities()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

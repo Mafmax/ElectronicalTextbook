@@ -8,27 +8,20 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using  fieldType = System.ValueTuple<
-    System.Windows.Controls.TextBlock,
-    System.Windows.Controls.TextBox, 
-    System.Windows.Controls.TextBlock>;
-using  passType = System.ValueTuple<
-    System.Windows.Controls.TextBlock,
-    System.Windows.Controls.PasswordBox,
-    System.Windows.Controls.TextBlock>;
+
 namespace ElectronicalTextbook.ViewModel
 {
     public abstract class RegisterViewModel : CalledViewModel<RegisterWindow>
     {
-        protected fieldType login;
-        protected fieldType name;
-        protected fieldType lastname;
-        protected fieldType surname;
-        protected fieldType sex;
+        protected RegisterField<TextBox> login;
+        protected RegisterField<TextBox> name;
+        protected RegisterField<TextBox> lastname;
+        protected RegisterField<TextBox> surname;
+        protected RegisterField<ComboBox> sex;
 
-        protected passType password;
-        protected passType confirmPassword;
-
+        protected RegisterField<PasswordBox> password;
+        protected RegisterField<PasswordBox> confirmPassword;
+        protected List<RegisterFieldBase> fields = new List<RegisterFieldBase>();
 
         public RegisterViewModel(Window caller) : base(caller)
         {
@@ -42,93 +35,99 @@ namespace ElectronicalTextbook.ViewModel
             }
         }
         protected abstract void Register();
-        protected abstract void SpecifiedUnpack();
+        protected abstract IEnumerable<RegisterFieldBase> SpecifiedUnpack();
         protected abstract void InitSpecifiedEvents();
         protected abstract void AddSpecified();
+        protected bool CheckAll()
+        {
+            bool isCorrectAll = true;
+            foreach (var item in fields)
+            {
+                isCorrectAll = isCorrectAll && item.IsCorrect();
+            }
+            return isCorrectAll;
+        }
         private void CommonUnpack(object sender, RoutedEventArgs e)
         {
-            string name1 = "field";
-            string name2 = "value";
-            string name3 = "error";
-            var names = (name1, name2, name3);
-            login = UnpackTemplatedSource<TextBlock, TextBox, TextBlock>(
-                names, window.login);
-            login.Item1.Text = "Логин: ";
-            name = UnpackTemplatedSource<TextBlock, TextBox, TextBlock>(
-                names, window.name);
-            name.Item1.Text = "Имя: ";
-            lastname = UnpackTemplatedSource<TextBlock, TextBox, TextBlock>(
-                names, window.lastname);
-            lastname.Item1.Text = "Фамилия: ";
-            surname = UnpackTemplatedSource<TextBlock, TextBox, TextBlock>(
-                names, window.surname);
-            surname.Item1.Text = "Отчество: ";
-            sex = UnpackTemplatedSource<TextBlock, TextBox, TextBlock>(
-                names, window.sex);
-            sex.Item1.Text = "Пол: ";
-            password = UnpackTemplatedSource<TextBlock, PasswordBox, TextBlock>(
-                names, window.password);
-            password.Item1.Text = "Пароль: ";
-            confirmPassword = UnpackTemplatedSource<TextBlock, PasswordBox, TextBlock>(
-                names, window.confirmPassword);
-            confirmPassword.Item1.Text = "Повторно пароль: ";
+            login = new RegisterField<TextBox>(window.login);
+            login.Label.Text = "Логин: ";
+            login.SetChecker(x => CheckLogin(x.Text, out var plug));
+            name = new RegisterField<TextBox>(window.name);
+            name.Label.Text = "Имя: ";
+            name.SetChecker(x => CheckNameLastnameSurname(x.Text, out var plug));
+            lastname = new RegisterField<TextBox>(window.lastname);
+            lastname.Label.Text = "Фамилия: ";
+            lastname.SetChecker(x => CheckNameLastnameSurname(x.Text, out var plug));
+            surname = new RegisterField<TextBox>(window.surname);
+            surname.Label.Text = "Отчество: ";
+            surname.SetChecker(x => CheckNameLastnameSurname(x.Text, out var plug));
+            sex = new RegisterField<ComboBox>(window.sex);
+            sex.Label.Text = "Пол: ";
+            sex.SetChecker(x => x.SelectedItem != null);
+            password = new RegisterField<PasswordBox>(window.password);
+            password.Label.Text = "Пароль: ";
+            password.SetChecker(x => PasswordChecker.IsCorrect(x.Password, out var plug));
+            confirmPassword = new RegisterField<PasswordBox>(window.confirmPassword);
+            confirmPassword.Label.Text = "Повторно пароль: ";
+            confirmPassword.SetChecker(x => PasswordChecker.IsCorrect(x.Password, out var plug));
+            fields.Add(login);
+            fields.Add(name);
+            fields.Add(lastname);
+            fields.Add(surname);
+            fields.Add(sex);
+            fields.Add(password);
+            fields.Add(confirmPassword);
             AddSpecified();
-            SpecifiedUnpack();
+            fields.AddRange(SpecifiedUnpack());
             InitCommonEvents();
+            SetCommonStartValues();
         }
+        protected abstract void SetSpecifiedStartValues();
+        private void SetCommonStartValues()
+        {
+            login.Content.Text = "";
+            name.Content.Text = "";
+            lastname.Content.Text = "";
+            surname.Content.Text = "";
+            TextBlock m = new TextBlock();
+            TextBlock zhh = new TextBlock();
+            sex.Content.Items.Add(m);
+            sex.Content.Items.Add(zhh);
+            sex.Content.SelectedIndex = 0;
 
+            SetSpecifiedStartValues();
+        }
         private void InitCommonEvents()
         {
-            login.Item2.TextChanged += OnLoginChanged;
-            name.Item2.TextChanged += OnNameChanged;
-            lastname.Item2.TextChanged += OnLastnameChanged;
-            surname.Item2.TextChanged += OnSurnameChanged;
-            password.Item2.PasswordChanged += OnPasswordChanged;
-            confirmPassword.Item2.PasswordChanged += OnConfirmPasswordChanged;
-            sex.Item2.TextChanged += OnSexChanged;
+            login.Content.TextChanged += OnLoginChanged;
+            name.Content.TextChanged += OnNameChanged;
+            lastname.Content.TextChanged += OnLastnameChanged;
+            surname.Content.TextChanged += OnSurnameChanged;
+            password.Content.PasswordChanged += OnPasswordChanged;
+            confirmPassword.Content.PasswordChanged += OnConfirmPasswordChanged;
             window.registerButton.Click += OnRegisterButtonClick;
             InitSpecifiedEvents();
         }
 
         private void OnRegisterButtonClick(object sender, RoutedEventArgs e)
         {
-            Register();
+            if (CheckAll())
+            {
+                Register();
+            }
+
         }
 
-        private void OnSexChanged(object sender, TextChangedEventArgs e)
-        {
-            CheckSex(sex);
-        }
 
-        protected void CheckSex((TextBlock label, TextBox value, TextBlock error) pair)
+        protected void CheckLogin(RegisterField<TextBox> field)
         {
-            window.registerButton.IsEnabled = CheckSex(pair.value.Text, out var message);
-            pair.error.Text = message;
-        }
-        protected bool CheckSex(string value, out string message)
-        {
-            message = "";
-            if (string.IsNullOrEmpty(value))
-            {
-                message = "Поле не может быть пустым";
-                return false;
-            }
-            if (!Regex.IsMatch(value, @"[мМжЖ]"))
-            {
-                message = "Буквой М или Ж";
-                return false;
-            }
-            return true;
-        }
-        protected void CheckLogin(fieldType pair)
-        {
-            window.registerButton.IsEnabled = CheckLogin(pair.Item2.Text, out var message);
-            pair.Item3.Text = message;
+            window.registerButton.IsEnabled = CheckLogin(field.Content.Text, out var message);
+            field.Error.Text = message;
         }
         protected bool CheckLogin(string value, out string message)
         {
             message = "";
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrWhiteSpace(value))
             {
                 message = "Поле не может быть пустым";
                 return false;
@@ -145,15 +144,15 @@ namespace ElectronicalTextbook.ViewModel
             }
             return true;
         }
-        protected void CheckNameLastnameSurname(fieldType pair)
+        protected void CheckNameLastnameSurname(RegisterField<TextBox> field)
         {
-            window.registerButton.IsEnabled = CheckNameLastnameSurname(pair.Item2.Text, out var error);
-            pair.Item1.Text = error;
+            window.registerButton.IsEnabled = CheckNameLastnameSurname(field.Content.Text, out var error);
+            field.Error.Text = error;
         }
         protected bool CheckNameLastnameSurname(string value, out string message)
         {
             message = "";
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrWhiteSpace(value))
             {
                 message = "Поле не может быть пустым";
                 return false;
@@ -173,16 +172,16 @@ namespace ElectronicalTextbook.ViewModel
 
         private void OnConfirmPasswordChanged(object sender, RoutedEventArgs e)
         {
-            window.registerButton.IsEnabled = PasswordChecker.IsCorrectNew(password.Item2.Password,
-             confirmPassword.Item2.Password, out var message);
-            confirmPassword.Item3.Text = message;
+            window.registerButton.IsEnabled = PasswordChecker.IsCorrectNew(password.Content.Password,
+             confirmPassword.Content.Password, out var message);
+            confirmPassword.Error.Text = message;
         }
 
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             window.registerButton.IsEnabled = PasswordChecker
-                .IsCorrect(password.Item2.Password, out var message);
-            password.Item3.Text = message;
+                .IsCorrect(password.Content.Password, out var message);
+            password.Error.Text = message;
         }
 
         private void OnSurnameChanged(object sender, TextChangedEventArgs e)
@@ -205,19 +204,6 @@ namespace ElectronicalTextbook.ViewModel
             CheckLogin(login);
         }
 
-        protected static (T1, T2) UnpackTemplatedSource<T1, T2>((string name1, string name2) names, Control templatedSource)
-        {
-            var a = (T1)templatedSource.Template.FindName(names.name1, templatedSource);
-            var b = (T2)templatedSource.Template.FindName(names.name2, templatedSource);
-            return (a, b);
-        }
-        protected static (T1, T2, T3) UnpackTemplatedSource<T1, T2, T3>((string name1, string name2, string name3) names, Control templatedSource)
-        {
-            var a = (T1)templatedSource.Template.FindName(names.name1, templatedSource);
-            var b = (T2)templatedSource.Template.FindName(names.name2, templatedSource);
-            var c = (T3)templatedSource.Template.FindName(names.name3, templatedSource);
-            return (a, b, c);
-        }
 
     }
 }

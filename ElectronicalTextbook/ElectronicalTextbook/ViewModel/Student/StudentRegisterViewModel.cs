@@ -7,16 +7,12 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using fieldType = System.ValueTuple<
-    System.Windows.Controls.TextBlock,
-    System.Windows.Controls.TextBox,
-    System.Windows.Controls.TextBlock>;
 namespace ElectronicalTextbook.ViewModel.Student
 {
     public class StudentRegisterViewModel : RegisterViewModel
     {
-        private fieldType classNumber;
-        private fieldType classSymbol;
+        private RegisterField<TextBox> classNumber;
+        private RegisterField<ComboBox> classSymbol;
         private ContentControl classNumberField;
         private ContentControl classSymbolField;
         public StudentRegisterViewModel(Window caller) : base(caller)
@@ -26,33 +22,12 @@ namespace ElectronicalTextbook.ViewModel.Student
 
         protected override void InitSpecifiedEvents()
         {
-            classNumber.Item2.TextChanged += OnClassNumberChanged;
-            classSymbol.Item2.TextChanged += OnClassSymbolChanged;
+            classNumber.Content.TextChanged += OnClassNumberChanged;
         }
-        private void CheckClassSymbol(fieldType pair)
+        private void CheckClassNumber(RegisterField<TextBox> field)
         {
-            window.registerButton.IsEnabled = CheckClassSymbol(pair.Item2.Text, out var message);
-            pair.Item3.Text = message;
-        }
-        private bool CheckClassSymbol(string value, out string message)
-        {
-            message = "";
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                message = "Поле не может быть пустым";
-                return false;
-            }
-            if (value.Length != 1 || !Regex.IsMatch(value, @"[аАбБвВгГдД]"))
-            {
-                message = "Одна буква (а/б/в/г/д)";
-                return false;
-            }
-            return true;
-        }
-        private void CheckClassNumber(fieldType pair)
-        {
-            window.registerButton.IsEnabled = CheckClassNumber(pair.Item2.Text, out string message);
-            pair.Item3.Text = message;
+            window.registerButton.IsEnabled = CheckClassNumber(field.Content.Text, out string message);
+            field.Error.Text = message;
         }
         private bool CheckClassNumber(string value, out string message)
         {
@@ -78,28 +53,25 @@ namespace ElectronicalTextbook.ViewModel.Student
             return true;
 
         }
-        private void OnClassSymbolChanged(object sender, TextChangedEventArgs e)
-        {
-            CheckClassSymbol(classSymbol);
-        }
 
         private void OnClassNumberChanged(object sender, TextChangedEventArgs e)
         {
             CheckClassNumber(classNumber);
         }
 
-        protected override void SpecifiedUnpack()
+        protected override IEnumerable<RegisterFieldBase> SpecifiedUnpack()
         {
-        
+
             window.specified.Children.Add(classNumberField);
             window.specified.Children.Add(classSymbolField);
-            var names = ("field", "value", "error");
-            classNumber = UnpackTemplatedSource<TextBlock, TextBox, TextBlock>
-                (names, classNumberField);
-            classNumber.Item1.Text = "Класс: ";
-            classSymbol = UnpackTemplatedSource<TextBlock, TextBox, TextBlock>
-               (names, classSymbolField);
-            classSymbol.Item1.Text = "Буква: ";
+            classNumber = new RegisterField<TextBox>(classNumberField);
+            classNumber.Label.Text = "Класс: ";
+            classNumber.SetChecker(x => CheckClassNumber(x.Text, out var plug));
+            classSymbol = new RegisterField<ComboBox>(classSymbolField);
+            classSymbol.Content.Text = "Буква: ";
+            classSymbol.SetChecker(x => x.SelectedItem != null);
+            yield return classNumber;
+            yield return classSymbol;
         }
 
         protected override void Register()
@@ -109,11 +81,23 @@ namespace ElectronicalTextbook.ViewModel.Student
 
         protected override void AddSpecified()
         {
-            ControlTemplate template = window.FindResource("fieldContainer") as ControlTemplate;
+            ControlTemplate template1 = window.FindResource("fieldContainer") as ControlTemplate;
+            ControlTemplate template2= window.FindResource("choiceFieldContainer") as ControlTemplate;
             classNumberField = new ContentControl();
-            classNumberField.Template = template;
+            classNumberField.Template = template1;
             classSymbolField = new ContentControl();
-            classSymbolField.Template = template;
+            classSymbolField.Template = template2;
+        }
+
+        protected override void SetSpecifiedStartValues()
+        {
+            classNumber.Content.Text = "6";
+            classSymbol.Content.Items.Add("А");
+            classSymbol.Content.Items.Add("Б");
+            classSymbol.Content.Items.Add("В");
+            classSymbol.Content.Items.Add("Г");
+            classSymbol.Content.Items.Add("Д");
+            classSymbol.Content.SelectedIndex = 0;
         }
     }
 }

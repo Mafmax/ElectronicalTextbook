@@ -65,10 +65,13 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Abstract\ViewModel.cs" />
     <Compile Include="ViewModel\RegisterChoiceViewModel.cs" />
+    <Compile Include="ViewModel\RegisterField.cs" />
+    <Compile Include="ViewModel\RegisterFieldBase.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
     <Compile Include="ViewModel\Student\StudentFirstPageViewModel.cs" />
     <Compile Include="ViewModel\Student\StudentRegisterViewModel.cs" />
     <Compile Include="ViewModel\Teacher\TeacherFirstPageViewModel.cs" />
+    <Compile Include="ViewModel\Teacher\TeacherRegisterViewModel.cs" />
     <Compile Include="View\AdminPasswordDialogWindow.xaml.cs">
       <DependentUpon>AdminPasswordDialogWindow.xaml</DependentUpon>
     </Compile>
