@@ -34,13 +34,13 @@ namespace ElectronicalTextbook.ViewModel
                     .Init(admin)
                     .Open();
             }
-            if(user is Teacher teacher)
+            if (user is Teacher teacher)
             {
                 new TeacherFirstPageViewModel(Window)
                     .Init(teacher)
                     .Open();
             }
-            if(user is Student student)
+            if (user is Student student)
             {
                 new StudentFirstPageViewModel(Window)
                     .Init(student)
@@ -50,8 +50,6 @@ namespace ElectronicalTextbook.ViewModel
         }
         private void TryEnter(string username, string password)
         {
-
-
             bool correct = DataBaseProcessor.TryEnter(username, password, out var user);
             Window.errorText.Visibility = Visibility.Hidden;
             if (correct) Enter(user);
@@ -74,10 +72,14 @@ namespace ElectronicalTextbook.ViewModel
         }
         private void OnPasswordRecoveryButtonClick(object sender, RoutedEventArgs e)
         {
-            var changePassword = new ChangePasswordViewModel(Window)
-                .Init(Window.loginTxt.Text);
-            changePassword.SetCallback(OnPasswordChanged);
-            changePassword.Open();
+            var dlg = new AdminPasswordDialogViewModel();
+            if (dlg.ShowAsDialog() == true)
+            {
+                var changePassword = new ChangePasswordViewModel(Window)
+                    .Init(Window.loginTxt.Text);
+                changePassword.SetCallback(OnPasswordChanged);
+                changePassword.Open();
+            }
         }
 
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
@@ -88,28 +90,32 @@ namespace ElectronicalTextbook.ViewModel
 
         private void OnRegisterButtonClick(object sender, RoutedEventArgs e)
         {
-            var regDlg = new RegisterChoiceViewModel();
-            if (regDlg.ShowAsDialog() == true)
+            var dlg = new AdminPasswordDialogViewModel();
+            if (dlg.ShowAsDialog() == true)
             {
-                User choice = regDlg.Choice as User;
-                if (choice is Student student)
+                var regDlg = new RegisterChoiceViewModel();
+                if (regDlg.ShowAsDialog() == true)
                 {
+                    User choice = regDlg.Choice as User;
+                    if (choice is Student student)
+                    {
 
-                    new StudentRegisterViewModel(Window)
-                    .Init(student)
-                    .SetCallback(OnRegister)
-                    .Open();
+                        new StudentRegisterViewModel(Window)
+                        .Init(student)
+                        .SetCallback(OnRegister)
+                        .Open();
+                    }
+                    if (choice is Teacher teacher)
+                    {
+                        new TeacherRegisterViewModel(Window)
+                        .Init(teacher)
+                        .SetCallback(OnRegister)
+                        .Open();
+
+                    }
+
+
                 }
-                if (choice is Teacher teacher)
-                {
-                    new TeacherRegisterViewModel(Window)
-                    .Init(teacher)
-                    .SetCallback(OnRegister)
-                    .Open();
-
-                }
-
-
             }
         }
 

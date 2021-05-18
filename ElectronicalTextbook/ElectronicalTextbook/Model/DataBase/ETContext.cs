@@ -13,7 +13,7 @@ namespace ElectronicalTextbook.Model.DataBase
         const string local = "data source=(LocalDb)\\MSSQLLocalDB;initial catalog=ElectronicalTextbook.Model.DataBase.Electronical textbook;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
         const string sqlServer = "data source=.\\SQLEXPRESS;initial catalog=Electronical textbook;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
         public ETContext()
-            : base(sqlServer)
+            : base(local)
         {
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
