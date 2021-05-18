@@ -24,7 +24,9 @@ namespace ElectronicalTextbook.Model.DataBase
 
         [Column("Отчество")]
         public string Surname { get; set; }
+        [Column("Пол")]
 
+        public string Sex { get; set; }
         [Column("Hash пароля")]
         public string PasswordHash { get; set; }
     }

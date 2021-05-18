@@ -1,4 +1,5 @@
-﻿using ElectronicalTextbook.View;
+﻿using ElectronicalTextbook.Model.DataBase;
+using ElectronicalTextbook.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,16 +27,14 @@ namespace ElectronicalTextbook.ViewModel
 
         private void OnStudentButtonClick(object sender, RoutedEventArgs e)
         {
-            //TODO: заменить тип Choice на User
-            Choice = "student";
+            Choice = new Student();
             Success();
         }
 
 
         private void OnTeacherButtonClick(object sender, RoutedEventArgs e)
         {
-            //TODO: заменить тип Choice на User
-            Choice = "teacher";
+            Choice = new Teacher();
             Success();
 
         }

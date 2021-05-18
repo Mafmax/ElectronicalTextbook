@@ -15,6 +15,7 @@ namespace ElectronicalTextbook.ViewModel
         {
             window.confirm.Click += OnConfirmButtonClick;
             window.reject.Click += OnRejectButtonClick;
+            window.errorTxt.Text = "";
         }
 
         private void OnRejectButtonClick(object sender, RoutedEventArgs e)
@@ -29,7 +30,7 @@ namespace ElectronicalTextbook.ViewModel
         {
             bool correct = DataBaseProcessor.IsCorrectPassword("admin", password);
             if (correct) Enter(password);
-            else window.errorTxt.Visibility = Visibility.Visible;
+            else window.errorTxt.Text = "Неверный пароль";
         }
         private void OnConfirmButtonClick(object sender, RoutedEventArgs e)
         {

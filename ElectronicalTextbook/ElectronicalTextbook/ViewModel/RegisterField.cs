@@ -13,8 +13,8 @@ namespace ElectronicalTextbook.ViewModel
         private Func<T, bool> isCorrectFunc;
         public RegisterField(Control control)
         {
-            Label = (TextBlock)control.Template.FindName("label", control);
-            Content = (T)control.Template.FindName("label", control);
+            Label = (TextBlock)control.Template.FindName("field", control);
+            Content = (T)control.Template.FindName("value", control);
             Error = (TextBlock)control.Template.FindName("error", control);
         }
         public void SetChecker(Func<T,bool> func)

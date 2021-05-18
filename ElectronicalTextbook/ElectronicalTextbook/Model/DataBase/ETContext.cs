@@ -3,6 +3,9 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Data.Entity.ModelConfiguration.Configuration;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace ElectronicalTextbook.Model.DataBase
 {
     public class ETContext : DbContext
@@ -20,6 +23,25 @@ namespace ElectronicalTextbook.Model.DataBase
                 .Map<Teacher>(x => x.Requires("Тип пользователя").HasValue("Учитель"))
                 .Map<Student>(x => x.Requires("Тип пользователя").HasValue("Ученик"));
 
+        }
+        public IEnumerable<User> GetAllUsers()
+        {
+            foreach (var item in Admins)
+            {
+                yield return item;
+            }
+            foreach (var item in Teachers)
+            {
+                yield return item;
+            }
+            foreach (var item in Students)
+            {
+                yield return item;
+            }
+        }
+        public User FindUserByLogin(string login)
+        {
+            return GetAllUsers().FirstOrDefault(x => x.Username.Equals(login));
         }
         public DbSet<Speciality> Specialities { get; set; }
         public DbSet<Admin> Admins { get; set; }

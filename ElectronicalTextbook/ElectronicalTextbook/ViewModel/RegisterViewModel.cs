@@ -1,4 +1,5 @@
-﻿using ElectronicalTextbook.Model.Supported;
+﻿using ElectronicalTextbook.Model.DataBase;
+using ElectronicalTextbook.Model.Supported;
 using ElectronicalTextbook.View;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace ElectronicalTextbook.ViewModel
 
         public RegisterViewModel(Window caller) : base(caller)
         {
+            AddSpecified();
             if (window.IsLoaded)
             {
                 CommonUnpack(null, null);
@@ -33,6 +35,15 @@ namespace ElectronicalTextbook.ViewModel
             {
                 window.Loaded += CommonUnpack;
             }
+        }
+        protected void FillCommon(User user)
+        {
+            user.Username = login.Content.Text;
+            user.Name = name.Content.Text;
+            user.Lastname = lastname.Content.Text;
+            user.Surname = surname.Content.Text;
+            user.Sex = sex.Content.Text;
+            user.PasswordHash = PasswordChecker.Hashed256(password.Content.Password);
         }
         protected abstract void Register();
         protected abstract IEnumerable<RegisterFieldBase> SpecifiedUnpack();
@@ -77,7 +88,7 @@ namespace ElectronicalTextbook.ViewModel
             fields.Add(sex);
             fields.Add(password);
             fields.Add(confirmPassword);
-            AddSpecified();
+
             fields.AddRange(SpecifiedUnpack());
             InitCommonEvents();
             SetCommonStartValues();
@@ -89,8 +100,8 @@ namespace ElectronicalTextbook.ViewModel
             name.Content.Text = "";
             lastname.Content.Text = "";
             surname.Content.Text = "";
-            TextBlock m = new TextBlock();
-            TextBlock zhh = new TextBlock();
+            TextBlock m = new TextBlock() { Text = "М" };
+            TextBlock zhh = new TextBlock() { Text = "Ж" };
             sex.Content.Items.Add(m);
             sex.Content.Items.Add(zhh);
             sex.Content.SelectedIndex = 0;
@@ -114,6 +125,7 @@ namespace ElectronicalTextbook.ViewModel
             if (CheckAll())
             {
                 Register();
+                Close();
             }
 
         }

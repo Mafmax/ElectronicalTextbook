@@ -1,4 +1,5 @@
-﻿using ElectronicalTextbook.View.Student;
+﻿using ElectronicalTextbook.Model.DataBase;
+using ElectronicalTextbook.View.Teacher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ElectronicalTextbook.ViewModel.Student
+namespace ElectronicalTextbook.ViewModel.TeacherView
 {
-    class StudentFirstPageViewModel:CalledViewModel<StudentFirstPageWindow>
+    public class TeacherFirstPageViewModel : CalledViewModel<TeacherFirstPageWindow>
     {
         public string Name { get => window.Title; set => window.Title = value; }
-        public StudentFirstPageViewModel(Window caller) : base(caller)
+        public Teacher Teacher { get; private set; }
+        public TeacherFirstPageViewModel(Window caller) : base(caller)
         {
             window.exit.Click += OnExitButtonClick;
             window.materials.Click += OnMaterialsButtonClick;
             window.tests.Click += OnTestsButtonClick;
+            window.results.Click += OnResultsButtonClick;
         }
 
         private void OnResultsButtonClick(object sender, RoutedEventArgs e)
@@ -38,9 +41,10 @@ namespace ElectronicalTextbook.ViewModel.Student
             Close();
         }
 
-        public override CalledViewModel<StudentFirstPageWindow> Init(object value)
+        public override CalledViewModel<TeacherFirstPageWindow> Init(object value)
         {
-            //TODO: проинициализировать имя ученика
+            Teacher = value as Teacher;
+            Name = $"{Teacher.Name} {Teacher.Surname}";
             return this;
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ElectronicalTextbook.Model.Supported
@@ -11,7 +13,21 @@ namespace ElectronicalTextbook.Model.Supported
         
         public static bool IsCorrect(string password, out string message)
         {
-            throw new NotImplementedException();
+            message = "";
+            if(!Regex.IsMatch(password,@"[a-zA-Zа-яА-Я0-9]"))
+            {
+                message = "Символы или цифры";
+                return false;
+            }
+            return true;
+        }
+        public static string Hashed256(string value)
+        {
+            var sha = SHA256.Create();
+            
+            var bytesValue = Encoding.ASCII.GetBytes(value);
+            var bytesHash = sha.ComputeHash(bytesValue);
+            return BitConverter.ToString(bytesHash).Replace("-","").ToLower();
         }
         public static bool IsCorrectNew(string newPassword, string confirmPassword, out string message)
         {

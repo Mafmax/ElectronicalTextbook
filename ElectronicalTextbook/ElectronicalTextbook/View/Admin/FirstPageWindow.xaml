@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectronicalTextbook.View.Admin"
         mc:Ignorable="d"
-        Title="Администратор" Height="333" Width="546.5">
+        Title="Администратор" Height="333" Width="503">
 
     <Grid Background="Aqua">
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="210,66,0,0" TextWrapping="Wrap" Text="Старый пароль" VerticalAlignment="Top" Width="118"/>
-        <PasswordBox x:Name="oldPassword" HorizontalAlignment="Left" Margin="210,86,0,0" VerticalAlignment="Top" Width="128"/>
-        <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="210,110,0,0" TextWrapping="Wrap" Text="Новый пароль" VerticalAlignment="Top" Width="118"/>
-        <PasswordBox x:Name="newPassword" HorizontalAlignment="Left" Margin="210,130,0,0" VerticalAlignment="Top" Width="128"/>
-        <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="210,154,0,0" TextWrapping="Wrap" Text="Подтвердить пароль" VerticalAlignment="Top" Width="118"/>
-        <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Left" Margin="210,174,0,0" VerticalAlignment="Top" Width="128"/>
-        <Button x:Name="confirm" Content="Поменять" HorizontalAlignment="Left" Margin="210,218,0,0" VerticalAlignment="Top" Width="128"/>
-        <TextBlock x:Name="error" Visibility="Visible" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Left" Margin="210,197,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153"/>
-        <Button x:Name="exit" Content="Главное меню"  HorizontalAlignment="Left" Margin="210,262,0,0" VerticalAlignment="Top" Width="128"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="168,22,0,0" TextWrapping="Wrap" Text="Старый пароль" VerticalAlignment="Top" Width="157"/>
+        <PasswordBox x:Name="oldPassword" HorizontalAlignment="Left" Margin="168,42,0,0" VerticalAlignment="Top" Width="170"/>
+        <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="168,66,0,0" TextWrapping="Wrap" Text="Новый пароль" VerticalAlignment="Top" Width="157"/>
+        <PasswordBox x:Name="newPassword" HorizontalAlignment="Left" Margin="168,86,0,0" VerticalAlignment="Top" Width="170"/>
+        <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="168,110,0,0" TextWrapping="Wrap" Text="Подтвердить пароль" VerticalAlignment="Top" Width="157"/>
+        <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Left" Margin="168,130,0,0" VerticalAlignment="Top" Width="170"/>
+        <Button x:Name="confirm" Content="Поменять" HorizontalAlignment="Left" Margin="168,174,0,0" VerticalAlignment="Top" Width="170"/>
+        <TextBlock x:Name="error" Visibility="Visible" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Left" Margin="168,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="203"/>
+        <Button x:Name="exit" Content="Главное меню"  HorizontalAlignment="Left" Margin="168,218,0,0" VerticalAlignment="Top" Width="170"/>
 
     </Grid>
 </Window>

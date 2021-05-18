@@ -1,4 +1,5 @@
-﻿using ElectronicalTextbook.View;
+﻿using ElectronicalTextbook.Model.DataBase;
+using ElectronicalTextbook.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,19 +8,24 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-namespace ElectronicalTextbook.ViewModel.Student
+namespace ElectronicalTextbook.ViewModel.StudentView
 {
     public class StudentRegisterViewModel : RegisterViewModel
     {
         private RegisterField<TextBox> classNumber;
         private RegisterField<ComboBox> classSymbol;
-        private ContentControl classNumberField;
-        private ContentControl classSymbolField;
+        private ContentControl classNumberTemplate;
+        private ContentControl classSymbolTemplate;
+        public Student Student { get; private set; }
         public StudentRegisterViewModel(Window caller) : base(caller)
         {
             window.Title = "Регистрация ученика";
         }
-
+        public override CalledViewModel<RegisterWindow> Init(object value)
+        {
+            Student = value as Student;
+            return this;
+        }
         protected override void InitSpecifiedEvents()
         {
             classNumber.Content.TextChanged += OnClassNumberChanged;
@@ -62,13 +68,11 @@ namespace ElectronicalTextbook.ViewModel.Student
         protected override IEnumerable<RegisterFieldBase> SpecifiedUnpack()
         {
 
-            window.specified.Children.Add(classNumberField);
-            window.specified.Children.Add(classSymbolField);
-            classNumber = new RegisterField<TextBox>(classNumberField);
+            classNumber = new RegisterField<TextBox>(classNumberTemplate);
             classNumber.Label.Text = "Класс: ";
             classNumber.SetChecker(x => CheckClassNumber(x.Text, out var plug));
-            classSymbol = new RegisterField<ComboBox>(classSymbolField);
-            classSymbol.Content.Text = "Буква: ";
+            classSymbol = new RegisterField<ComboBox>(classSymbolTemplate);
+            classSymbol.Label.Text = "Буква: ";
             classSymbol.SetChecker(x => x.SelectedItem != null);
             yield return classNumber;
             yield return classSymbol;
@@ -76,17 +80,23 @@ namespace ElectronicalTextbook.ViewModel.Student
 
         protected override void Register()
         {
-            throw new NotImplementedException();
+            Student = Student ?? new Student();
+            FillCommon(Student);
+            DataBaseProcessor.RegisterStudent(Student,
+                classNumber.Content.Text, classSymbol.Content.Text);
         }
 
         protected override void AddSpecified()
         {
-            ControlTemplate template1 = window.FindResource("fieldContainer") as ControlTemplate;
-            ControlTemplate template2= window.FindResource("choiceFieldContainer") as ControlTemplate;
-            classNumberField = new ContentControl();
-            classNumberField.Template = template1;
-            classSymbolField = new ContentControl();
-            classSymbolField.Template = template2;
+            ControlTemplate template1 = window.FindResource("fieldTemplate") as ControlTemplate;
+            ControlTemplate template2 = window.FindResource("choiceFieldTemplate") as ControlTemplate;
+            classNumberTemplate = new ContentControl();
+            classNumberTemplate.Template = template1;
+            classSymbolTemplate = new ContentControl();
+            classSymbolTemplate.Template = template2;
+
+            window.specified.Children.Add(classNumberTemplate);
+            window.specified.Children.Add(classSymbolTemplate);
         }
 
         protected override void SetSpecifiedStartValues()

@@ -11,8 +11,8 @@
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" ></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="field" Grid.Column="0"></TextBlock>
                 <ComboBox x:Name="value" Grid.Column="1"></ComboBox>
@@ -23,8 +23,8 @@
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" ></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="field" Grid.Column="0"></TextBlock>
                 <PasswordBox x:Name="value" Grid.Column="1"></PasswordBox>
@@ -35,8 +35,8 @@
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" ></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="field" Grid.Column="0"></TextBlock>
                 <TextBox x:Name="value" Grid.Column="1"></TextBox>
@@ -52,32 +52,11 @@
             <ContentControl x:Name="surname" Template="{StaticResource fieldTemplate}"></ContentControl>
             <ContentControl x:Name="sex" Template="{StaticResource choiceFieldTemplate}"></ContentControl>
         </StackPanel>
-        <StackPanel x:Name="specified">
+        <StackPanel x:Name="specified"></StackPanel>
+        <StackPanel x:Name="passwordArea">
             <ContentControl x:Name="password" Template="{StaticResource passwordFieldTemplate}"></ContentControl>
             <ContentControl x:Name="confirmPassword" Template="{StaticResource passwordFieldTemplate}"></ContentControl>
         </StackPanel>
-        <StackPanel x:Name="passwordArea">
-            <Grid Margin="0,0,0,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" ></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" >Поле:</TextBlock>
-                <TextBox Grid.Column="1" ></TextBox>
-                <TextBlock Grid.Column="2" Foreground="Red" FontWeight="Bold"></TextBlock>
-            </Grid>
-            <Grid Margin="0,0,0,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" ></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" >Поле:</TextBlock>
-                <TextBox Grid.Column="1" ></TextBox>
-                <TextBlock Grid.Column="2" Foreground="Red" FontWeight="Bold"></TextBlock>
-            </Grid>
-        </StackPanel>
-        <Button x:Name="registerButton">Зарегистрировать</Button>
+        <Button x:Name="registerButton" Content="Зарегистрировать и вернуться в главное меню"/>
     </StackPanel>
 </Window>

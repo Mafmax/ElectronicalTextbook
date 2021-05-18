@@ -13,14 +13,21 @@ namespace ElectronicalTextbook.ViewModel
 {
     public class ChangePasswordViewModel : CalledViewModel<ChangePasswordWindow>
     {
+        public string User { get; set; }
         public ChangePasswordViewModel(Window caller) : base(caller)
         {
             window.newPassword.PasswordChanged += OnNewPasswordChanged;
             window.confirmPassword.PasswordChanged += OnConfirmPasswordChanged;
+            window.confirm.Click += OnConfirmButtonClick;
         }
         public override CalledViewModel<ChangePasswordWindow> Init(object value)
         {
-            //TODO: проинициализировать имя пользователя
+            foreach (var item in DataBaseProcessor.GetUserNames())
+            {
+                window.user.Items.Add(item);
+            }
+            window.user.SelectedItem = 0;
+            window.user.SelectedItem = (string)value;
             return this;
         }
         private void OnNewPasswordChanged(object sender, RoutedEventArgs e)

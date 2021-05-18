@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ElectronicalTextbook.Model.Supported;
 using ElectronicalTextbook.View.Admin;
-namespace ElectronicalTextbook.ViewModel.Admin
+namespace ElectronicalTextbook.ViewModel.AdminView
 {
     public class AdminFirstPageViewModel : CalledViewModel<FirstPageWindow>
     {
@@ -52,6 +52,9 @@ namespace ElectronicalTextbook.ViewModel.Admin
             if (DataBaseProcessor.IsCorrectPassword("admin", oldPassword))
             {
                 DataBaseProcessor.ChangePassword("admin", newPassword);
+                window.oldPassword.Password = "";
+                window.confirmPassword.Password = "";
+                window.newPassword.Password = "";
             }
             else
             {
