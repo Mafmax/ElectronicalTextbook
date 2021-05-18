@@ -35,8 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,7 +65,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Migrations\202105180408283_Init.cs" />
+    <Compile Include="Migrations\202105180408283_Init.Designer.cs">
+      <DependentUpon>202105180408283_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105180548434_SpecialitiesAdded.cs" />
+    <Compile Include="Migrations\202105180548434_SpecialitiesAdded.Designer.cs">
+      <DependentUpon>202105180548434_SpecialitiesAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105180554072_UserHierarchyAdded.cs" />
+    <Compile Include="Migrations\202105180554072_UserHierarchyAdded.Designer.cs">
+      <DependentUpon>202105180554072_UserHierarchyAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\DataBaseProcessor.cs" />
+    <Compile Include="Model\DataBase\Admin.cs" />
+    <Compile Include="Model\DataBase\Speciality.cs" />
+    <Compile Include="Model\DataBase\ETContext.cs" />
+    <Compile Include="Model\DataBase\Student.cs" />
+    <Compile Include="Model\DataBase\Teacher.cs" />
+    <Compile Include="Model\DataBase\User.cs" />
     <Compile Include="Model\Supported\PasswordChecker.cs" />
     <Compile Include="ViewModel\AdminPasswordDialogViewModel.cs" />
     <Compile Include="ViewModel\Admin\AdminFirstPageViewModel.cs" />
@@ -148,10 +177,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202105180408283_Init.resx">
+      <DependentUpon>202105180408283_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105180548434_SpecialitiesAdded.resx">
+      <DependentUpon>202105180548434_SpecialitiesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105180554072_UserHierarchyAdded.resx">
+      <DependentUpon>202105180554072_UserHierarchyAdded.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
