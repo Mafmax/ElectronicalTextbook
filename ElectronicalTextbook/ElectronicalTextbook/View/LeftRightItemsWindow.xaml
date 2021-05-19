@@ -1,0 +1,41 @@
+﻿<Window x:Class="ElectronicalTextbook.View.LeftRightItemsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElectronicalTextbook.View"
+        mc:Ignorable="d"
+        Title="LeftRightItemsWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="leftLabel" Grid.Column="0">Label1</TextBlock>
+        <ScrollViewer Grid.Row="1">
+
+            <ListBox x:Name="leftItems">
+            </ListBox>
+        </ScrollViewer>
+        <Grid Grid.Row="2" x:Name="leftButtons">
+
+            <Button x:Name="leftButton" Grid.Column="0" FontSize="20">btn</Button>
+        </Grid>
+        <TextBlock x:Name="rightLabel" Grid.Column="1">Label2</TextBlock>
+        <ScrollViewer Grid.Column="1" Grid.Row="1">
+
+            <ListBox x:Name="rightItems">
+            </ListBox>
+        </ScrollViewer>
+        <Grid Grid.Column="1" Grid.Row="2" x:Name="rightButtons">
+            <Button  x:Name="rightButton" Grid.Column="0" FontSize="20">btn</Button>
+        </Grid>
+
+    </Grid>
+</Window>

@@ -22,8 +22,58 @@ namespace ElectronicalTextbook.Model.DataBase
                 .Map<Admin>(x => x.Requires("Тип пользователя").HasValue("Администратор"))
                 .Map<Teacher>(x => x.Requires("Тип пользователя").HasValue("Учитель"))
                 .Map<Student>(x => x.Requires("Тип пользователя").HasValue("Ученик"));
+            modelBuilder.Entity<Question>()
+                .HasRequired(q => q.Test)
+                .WithMany(t => t.Questions)
+                .HasForeignKey(q => q.TestId);
+            modelBuilder.Entity<Test>()
+                .HasRequired(x => x.Material)
+                .WithMany(x => x.Tests)
+                .HasForeignKey(x => x.MaterialTheme);
+            modelBuilder.Entity<Teacher>()
+                .HasRequired(t => t.Speciality)
+                .WithMany(s => s.Teachers)
+                .HasForeignKey(t => t.SpecialityName);
+            modelBuilder.Entity<Material>()
+                .HasMany(m => m.Specialities)
+                .WithMany(s => s.Materials)
+                .Map(ms =>
+                {
+                    ms.MapLeftKey("Тема материала");
+                    ms.MapRightKey("Идентификатор материала на тему");
+                    ms.ToTable("МатериалыСпециальности");
+                });
+            modelBuilder.Entity<Material>()
+                .HasMany(m => m.PreviewMaterials)
+                .WithMany(m => m.NextMaterials)
+                .Map(pn =>
+                {
+                    pn.MapLeftKey("Открываемый материал");
+                    pn.MapRightKey("Необходимый материал для открытия");
+                    pn.ToTable("Зависимости материалов");
+                });
+            modelBuilder.Entity<Material>()
+                .HasMany(m => m.StudentsWhoComplete)
+                .WithMany(s => s.CompletedMaterials)
+                .Map(ms =>
+                {
+                    ms.MapLeftKey("Материал");
+                    ms.MapRightKey("Ученик");
+                    ms.ToTable("Завершенные материалы");
+                });
+            modelBuilder.Entity<Material>()
+                .HasMany(m => m.StudentsWhoNotComplete)
+                .WithMany(s => s.NotCompletedMaterials)
+                .Map(ms =>
+                {
+                    ms.MapLeftKey("Материал");
+                    ms.MapRightKey("Ученик");
+                    ms.ToTable("Незавершенные материалы");
+                });
+
 
         }
+
         public IEnumerable<User> GetAllUsers()
         {
             foreach (var item in Admins)
@@ -47,6 +97,8 @@ namespace ElectronicalTextbook.Model.DataBase
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<Test> Tests { get; set; }
     }
 
 }

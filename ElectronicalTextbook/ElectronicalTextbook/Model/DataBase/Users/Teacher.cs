@@ -10,6 +10,10 @@ namespace ElectronicalTextbook.Model.DataBase
     public class Teacher : User
     {
         [Column("Специализация")]
+        public string SpecialityName { get; set; }
+        [Column("Специализация")]
         public Speciality Speciality { get; set; }
+        public List<Material> Materials { get; set; }
+        public List<Test> Tests { get; set; }
     }
 }

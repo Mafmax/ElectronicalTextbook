@@ -10,7 +10,25 @@ namespace ElectronicalTextbook
 {
     public static class DataBaseProcessor
     {
-
+        static DataBaseProcessor()
+        {
+            CheckAdmin();
+        }
+        private static void CheckAdmin()
+        {
+            using(var context = new ETContext())
+            {
+                var admins = context.Admins.ToList();
+                if(admins.Count < 1)
+                {
+                    var admin = new Admin();
+                    admin.Username = "admin";
+                    admin.PasswordHash = PasswordChecker.Hashed256("admin");
+                    context.Admins.Add(admin);
+                    context.SaveChanges();
+                }
+            }
+        }
         public static bool IsUsernameAvaliable(string username)
         {
             using (var context = new ETContext())

@@ -26,6 +26,9 @@ namespace ElectronicalTextbook.Model.DataBase
                 _ClassSymbol = splitted[1];
             }
         }
+        public List<Material> CompletedMaterials { get; set; }
+        public List<Material> NotCompletedMaterials { get; set; }
+        public List<Test> Tests { get; set; }
         [NotMapped]
         public int _ClassNumber { get; set; }
         [NotMapped]

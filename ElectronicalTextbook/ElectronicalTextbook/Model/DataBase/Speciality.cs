@@ -14,5 +14,12 @@ namespace ElectronicalTextbook.Model.DataBase
         [Key]
         [Column("Название специальности")]
         public string Name { get; set; }
+        public List<Teacher> Teachers { get; set; }
+        public List<Material> Materials { get; set; }
+        public Speciality()
+        {
+            Teachers = new List<Teacher>();
+            Materials = new List<Material>();
+        }
     }
 }
