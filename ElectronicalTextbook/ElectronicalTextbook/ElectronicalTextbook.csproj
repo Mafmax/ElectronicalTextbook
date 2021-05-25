@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -88,7 +89,24 @@
     <Compile Include="Migrations\202105190341411_TestsAdded.Designer.cs">
       <DependentUpon>202105190341411_TestsAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105191449076_EstimationAdded.cs" />
+    <Compile Include="Migrations\202105191449076_EstimationAdded.Designer.cs">
+      <DependentUpon>202105191449076_EstimationAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105250739112_InfoBlocksAdded.cs" />
+    <Compile Include="Migrations\202105250739112_InfoBlocksAdded.Designer.cs">
+      <DependentUpon>202105250739112_InfoBlocksAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105250810204_MaterialHasSingleSpecialityNow.cs" />
+    <Compile Include="Migrations\202105250810204_MaterialHasSingleSpecialityNow.Designer.cs">
+      <DependentUpon>202105250810204_MaterialHasSingleSpecialityNow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Controllers\MaterialViewer.cs" />
+    <Compile Include="Model\Controllers\MaterialViewMode.cs" />
+    <Compile Include="Model\Controllers\TestViewer.cs" />
+    <Compile Include="Model\Controllers\TestViewMode.cs" />
+    <Compile Include="Model\Controllers\Viewer.cs" />
     <Compile Include="Model\DataBaseProcessor.cs" />
     <Compile Include="Model\DataBase\Material.cs" />
     <Compile Include="Model\DataBase\Test.cs" />
@@ -98,26 +116,42 @@
     <Compile Include="Model\DataBase\Users\Student.cs" />
     <Compile Include="Model\DataBase\Users\Teacher.cs" />
     <Compile Include="Model\DataBase\Users\User.cs" />
-    <Compile Include="Model\InfoBlock.cs" />
+    <Compile Include="Model\Estimation.cs" />
+    <Compile Include="Model\InfoBlocks\InfoBlock.cs" />
+    <Compile Include="Model\InfoBlocks\InfoBlockProvider.cs" />
+    <Compile Include="Model\InfoBlocks\MaterialsInfoBlockProvider.cs" />
+    <Compile Include="Model\InfoBlocks\PictureInfoBlock.cs" />
+    <Compile Include="Model\InfoBlocks\TextInfoBlock.cs" />
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\AnswerBlock.cs" />
     <Compile Include="Model\Supported\PasswordChecker.cs" />
+    <Compile Include="Model\DataBase\TestEstimation.cs" />
     <Compile Include="ViewModel\AdminPasswordDialogViewModel.cs" />
     <Compile Include="ViewModel\Admin\AdminFirstPageViewModel.cs" />
     <Compile Include="ViewModel\Abstract\CalledViewModel.cs" />
     <Compile Include="ViewModel\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModel\Abstract\DialogViewModel.cs" />
+    <Compile Include="ViewModel\ConfigureMaterialDialog.cs" />
+    <Compile Include="ViewModel\FillPictureInfoBlockViewModel.cs" />
+    <Compile Include="ViewModel\FillTextInfoBlockDialogViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Abstract\ViewModel.cs" />
+    <Compile Include="ViewModel\LeftRightItemsViewModel.cs" />
     <Compile Include="ViewModel\MaterialsViewModel.cs" />
     <Compile Include="ViewModel\RegisterChoiceViewModel.cs" />
     <Compile Include="ViewModel\RegisterField.cs" />
     <Compile Include="ViewModel\RegisterFieldBase.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
     <Compile Include="ViewModel\StudentView\StudentFirstPageViewModel.cs" />
+    <Compile Include="ViewModel\StudentView\StudentMaterialsViewModel.cs" />
     <Compile Include="ViewModel\StudentView\StudentRegisterViewModel.cs" />
+    <Compile Include="ViewModel\StudentView\StudentTestViewModel.cs" />
     <Compile Include="ViewModel\TeacherView\TeacherFirstPageViewModel.cs" />
+    <Compile Include="ViewModel\TeacherView\TeacherMaterialsViewModel.cs" />
     <Compile Include="ViewModel\TeacherView\TeacherRegisterViewModel.cs" />
+    <Compile Include="ViewModel\TeacherView\TeacherTestsViewModel.cs" />
+    <Compile Include="ViewModel\TestsViewModel.cs" />
+    <Compile Include="ViewModel\ViewMaterialViewModel.cs" />
     <Compile Include="View\AdminPasswordDialogWindow.xaml.cs">
       <DependentUpon>AdminPasswordDialogWindow.xaml</DependentUpon>
     </Compile>
@@ -126,6 +160,18 @@
     </Compile>
     <Compile Include="View\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ConfigureMaterialWindow.xaml.cs">
+      <DependentUpon>ConfigureMaterialWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EmptyWindow.xaml.cs">
+      <DependentUpon>EmptyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FillPictureInfoBlockWindow.xaml.cs">
+      <DependentUpon>FillPictureInfoBlockWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FillTextInfoBlockWindow.xaml.cs">
+      <DependentUpon>FillTextInfoBlockWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LeftRightItemsWindow.xaml.cs">
       <DependentUpon>LeftRightItemsWindow.xaml</DependentUpon>
@@ -163,6 +209,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConfigureMaterialWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EmptyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FillPictureInfoBlockWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FillTextInfoBlockWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +278,15 @@
     <EmbeddedResource Include="Migrations\202105190341411_TestsAdded.resx">
       <DependentUpon>202105190341411_TestsAdded.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105191449076_EstimationAdded.resx">
+      <DependentUpon>202105191449076_EstimationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250739112_InfoBlocksAdded.resx">
+      <DependentUpon>202105250739112_InfoBlocksAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250810204_MaterialHasSingleSpecialityNow.resx">
+      <DependentUpon>202105250810204_MaterialHasSingleSpecialityNow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -229,6 +300,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

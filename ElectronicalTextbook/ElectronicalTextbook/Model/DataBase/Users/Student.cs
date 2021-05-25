@@ -28,11 +28,20 @@ namespace ElectronicalTextbook.Model.DataBase
         }
         public List<Material> CompletedMaterials { get; set; }
         public List<Material> NotCompletedMaterials { get; set; }
-        public List<Test> Tests { get; set; }
+        public List<TestEstimation> TestEstimations { get; set; }
         [NotMapped]
         public int _ClassNumber { get; set; }
         [NotMapped]
         public string _ClassSymbol { get; set; }
-
+        public override string ToString()
+        {
+            return $"{Name} {Lastname} {Class}";
+        }
+        public Student()
+        {
+            CompletedMaterials = new List<Material>();
+            NotCompletedMaterials = new List<Material>();
+            TestEstimations = new List<TestEstimation>();
+        }
     }
 }

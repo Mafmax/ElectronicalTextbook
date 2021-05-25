@@ -53,11 +53,25 @@ namespace ElectronicalTextbook.ViewModel
         private void OnConfirmButtonClick(object sender, RoutedEventArgs e)
         {
             string newPassword = window.newPassword.Password;
-            string username = window.user.SelectedItem.ToString();
+            var user = window.user.SelectedItem;
+            if(user is null)
+            {
+                window.error.Text = "Некорректное имя пользователя";
+                return;
+            }
+            string username = user.ToString();
             if (!DataBaseProcessor.IsUsernameAvaliable(username))
             {
+                if(PasswordChecker.IsCorrect(newPassword, out var message))
+                {
+
                 DataBaseProcessor.ChangePassword(username, newPassword);
                 Close();
+                }
+                else
+                {
+                    window.error.Text = message;
+                }
             }
             else
             {

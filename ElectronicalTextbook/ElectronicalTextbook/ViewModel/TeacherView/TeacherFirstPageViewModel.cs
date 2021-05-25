@@ -33,7 +33,9 @@ namespace ElectronicalTextbook.ViewModel.TeacherView
 
         private void OnMaterialsButtonClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var materialsVM = new TeacherMaterialsViewModel(window)
+                .Init(Teacher);
+            materialsVM.Open();
         }
 
         private void OnExitButtonClick(object sender, RoutedEventArgs e)
@@ -44,7 +46,7 @@ namespace ElectronicalTextbook.ViewModel.TeacherView
         public override CalledViewModel<TeacherFirstPageWindow> Init(object value)
         {
             Teacher = value as Teacher;
-            Name = $"{Teacher.Name} {Teacher.Surname}";
+            Name = Teacher.ToString();
             return this;
         }
 

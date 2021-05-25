@@ -20,10 +20,6 @@ namespace ElectronicalTextbook.ViewModel.StudentView
             window.tests.Click += OnTestsButtonClick;
         }
 
-        private void OnResultsButtonClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void OnTestsButtonClick(object sender, RoutedEventArgs e)
         {
@@ -32,7 +28,9 @@ namespace ElectronicalTextbook.ViewModel.StudentView
 
         private void OnMaterialsButtonClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var materialsVM = new StudentMaterialsViewModel(window)
+                .Init(Student);
+            materialsVM.Open();
         }
 
         private void OnExitButtonClick(object sender, RoutedEventArgs e)
@@ -43,7 +41,7 @@ namespace ElectronicalTextbook.ViewModel.StudentView
         public override CalledViewModel<StudentFirstPageWindow> Init(object value)
         {
             Student = value as Student;
-            Name = $"{Student.Name} {Student.Lastname}";
+            Name = Student.ToString();
             return this;
         }
 

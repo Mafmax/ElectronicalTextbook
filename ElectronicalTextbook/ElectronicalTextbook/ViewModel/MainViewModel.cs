@@ -23,8 +23,6 @@ namespace ElectronicalTextbook.ViewModel
             Window.enterBtn.Click += OnEnterButtonClick;
             Window.passwordRecoveryBtn.Click += OnPasswordRecoveryButtonClick;
             Window.adminBtn.Click += OnChangeAdminPasswordButtonClick;
-
-
         }
         private void Enter(User user)
         {

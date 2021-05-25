@@ -5,6 +5,7 @@ using System.Linq;
 using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Collections;
 using System.Collections.Generic;
+using ElectronicalTextbook.Model.InfoBlocks;
 
 namespace ElectronicalTextbook.Model.DataBase
 {
@@ -22,6 +23,9 @@ namespace ElectronicalTextbook.Model.DataBase
                 .Map<Admin>(x => x.Requires("Тип пользователя").HasValue("Администратор"))
                 .Map<Teacher>(x => x.Requires("Тип пользователя").HasValue("Учитель"))
                 .Map<Student>(x => x.Requires("Тип пользователя").HasValue("Ученик"));
+            modelBuilder.Entity<InfoBlock>()
+                  .Map<TextInfoBlock>(x => x.Requires("Тип информационного блока").HasValue("Текст"))
+                  .Map<PictureInfoBlock>(x => x.Requires("Тип информационного блока").HasValue("Изображение"));
             modelBuilder.Entity<Question>()
                 .HasRequired(q => q.Test)
                 .WithMany(t => t.Questions)
@@ -34,15 +38,10 @@ namespace ElectronicalTextbook.Model.DataBase
                 .HasRequired(t => t.Speciality)
                 .WithMany(s => s.Teachers)
                 .HasForeignKey(t => t.SpecialityName);
-            modelBuilder.Entity<Material>()
-                .HasMany(m => m.Specialities)
-                .WithMany(s => s.Materials)
-                .Map(ms =>
-                {
-                    ms.MapLeftKey("Тема материала");
-                    ms.MapRightKey("Идентификатор материала на тему");
-                    ms.ToTable("МатериалыСпециальности");
-                });
+           /* modelBuilder.Entity<Material>()
+                .HasRequired(x => x.Teacher)
+                .WithMany(x => x.Materials)
+                .HasForeignKey(x => x.TeacherId);*/
             modelBuilder.Entity<Material>()
                 .HasMany(m => m.PreviewMaterials)
                 .WithMany(m => m.NextMaterials)
@@ -73,7 +72,6 @@ namespace ElectronicalTextbook.Model.DataBase
 
 
         }
-
         public IEnumerable<User> GetAllUsers()
         {
             foreach (var item in Admins)
@@ -99,6 +97,10 @@ namespace ElectronicalTextbook.Model.DataBase
         public DbSet<Student> Students { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<Test> Tests { get; set; }
+        public DbSet<TestEstimation> Estimations { get; set; }
+        public DbSet<TextInfoBlock> TextBlocks { get; set; }
+        public DbSet<PictureInfoBlock> PictureBlocks { get; set; }
+        public DbSet<InfoBlock> InfoBlocks { get; set; }
     }
 
 }

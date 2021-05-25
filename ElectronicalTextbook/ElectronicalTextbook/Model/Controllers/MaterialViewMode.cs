@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectronicalTextbook.Model
+namespace ElectronicalTextbook.Model.Controllers
 {
-    public abstract class InfoBlock
+    public enum MaterialViewMode
     {
+        Edit,
+        View
     }
 }

@@ -6,14 +6,9 @@
         xmlns:local="clr-namespace:ElectronicalTextbook.View.Teacher"
         mc:Ignorable="d"
         Title="" Height="450" Width="800">
-    <Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" x:Name="materials" FontSize="30">Материалы</Button>
+        <StackPanel>
+            <Button Grid.Row="0" x:Name="materials" FontSize="30">Материалы</Button>
         <Button Grid.Row="1" x:Name="tests" FontSize="30">Тесты</Button>
-        <Button Grid.Row="2" x:Name="exit" FontSize="25">В главное меню</Button>
-    </Grid>
+        <Button Grid.Row="2" x:Name="exit" FontSize="30">В главное меню</Button>
+        </StackPanel>
 </Window>

@@ -49,11 +49,9 @@ namespace ElectronicalTextbook.ViewModel.TeacherView
 
         protected override void SetSpecifiedStartValues()
         {
-            string[] specialities = DataBaseProcessor.GetSpecialities();
-
-            for (int i = 0; i < specialities.Length; i++)
+            foreach (var item in DataBaseProcessor.GetSpecialities())
             {
-                speciality.Content.Items.Add(specialities[i]);
+                speciality.Content.Items.Add(item);
             }
             speciality.Content.SelectedIndex = 0;
         }

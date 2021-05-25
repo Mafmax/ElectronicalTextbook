@@ -15,5 +15,14 @@ namespace ElectronicalTextbook.Model.DataBase
         public Speciality Speciality { get; set; }
         public List<Material> Materials { get; set; }
         public List<Test> Tests { get; set; }
+        public override string ToString()
+        {
+            return $"{Name} {Surname}";
+        }
+        public Teacher()
+        {
+            Materials = new List<Material>();
+            Tests = new List<Test>();
+        }
     }
 }

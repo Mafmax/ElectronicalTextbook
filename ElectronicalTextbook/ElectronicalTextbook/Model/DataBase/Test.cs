@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,19 +14,25 @@ namespace ElectronicalTextbook.Model.DataBase
     {
         [Key]
         public int Id { get; set; }
+        
         [Column("Тема материала")]
         public string MaterialTheme { get; set; }
         [Column("Материал")]
         public Material Material { get; set; }
 
-        [Column("Количество попыток")]
-        public int Attempts { get; set; }
+        public List<TestEstimation> TestEstimations { get; set; }
         public List<Question> Questions { get; set; }
         [Column("Создатель теста")]
         public Teacher Teacher { get; set; }
 
-        [Column("Цель тестирования")]
-        public Student Student { get; set; }
-
+ 
+        
+        public Test()
+        {
+            Questions = new List<Question>();
+            TestEstimations = new List<TestEstimation>();
+        }
+        
+        
     }
 }

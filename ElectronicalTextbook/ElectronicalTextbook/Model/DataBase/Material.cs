@@ -15,35 +15,29 @@ namespace ElectronicalTextbook.Model.DataBase
         [Key]
         [Column("Тема материала")]
         public string Theme { get; set; }
-        [Column("Содержимое")]
-        internal string _Content { get; set; }
-        public List<Speciality> Specialities { get; set; }
+        public Speciality Speciality { get; set; }
         public List<Material> NextMaterials { get; set; }
         public List<Material> PreviewMaterials { get; set; }
-        public List<Test> Tests{ get; set; }
+        public List<Test> Tests { get; set; }
         public List<Student> StudentsWhoComplete { get; set; }
         public List<Student> StudentsWhoNotComplete { get; set; }
+       
         [Column("Создатель материала")]
         public Teacher Teacher { get; set; }
-        [NotMapped]
-        public List<InfoBlock> Content
-        {
-            get
-            {
-                return JsonConvert.DeserializeObject<List<InfoBlock>>(_Content);
-            }
-            set
-            {
-                _Content = JsonConvert.SerializeObject(value);
-            }
-        }
+        [Column("Содержимое")]
+        public List<InfoBlock> Content { get; set; }
         public Material()
         {
             NextMaterials = new List<Material>();
             PreviewMaterials = new List<Material>();
             Content = new List<InfoBlock>();
             Tests = new List<Test>();
-            Specialities = new List<Speciality>();
+            StudentsWhoComplete = new List<Student>();
+            StudentsWhoNotComplete = new List<Student>();
+        }
+        public override string ToString()
+        {
+            return $"\"{Theme}\". Предмет: {Speciality}. Добавил(а) {Teacher}.";
         }
     }
 }

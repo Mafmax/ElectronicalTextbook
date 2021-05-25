@@ -21,5 +21,9 @@ namespace ElectronicalTextbook.Model.DataBase
             Teachers = new List<Teacher>();
             Materials = new List<Material>();
         }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

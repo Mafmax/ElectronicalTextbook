@@ -14,6 +14,11 @@ namespace ElectronicalTextbook.Model.Supported
         public static bool IsCorrect(string password, out string message)
         {
             message = "";
+            if (password.Length < 5)
+            {
+                message = "Слишком короткий пароль";
+                return false;
+            }
             if(!Regex.IsMatch(password,@"[a-zA-Zа-яА-Я0-9]"))
             {
                 message = "Символы или цифры";

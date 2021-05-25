@@ -19,23 +19,17 @@
 
         <TextBlock x:Name="leftLabel" Grid.Column="0">Label1</TextBlock>
         <ScrollViewer Grid.Row="1">
-
             <ListBox x:Name="leftItems">
             </ListBox>
         </ScrollViewer>
         <Grid Grid.Row="2" x:Name="leftButtons">
-
-            <Button x:Name="leftButton" Grid.Column="0" FontSize="20">btn</Button>
         </Grid>
         <TextBlock x:Name="rightLabel" Grid.Column="1">Label2</TextBlock>
         <ScrollViewer Grid.Column="1" Grid.Row="1">
-
             <ListBox x:Name="rightItems">
             </ListBox>
         </ScrollViewer>
         <Grid Grid.Column="1" Grid.Row="2" x:Name="rightButtons">
-            <Button  x:Name="rightButton" Grid.Column="0" FontSize="20">btn</Button>
         </Grid>
-
     </Grid>
 </Window>
