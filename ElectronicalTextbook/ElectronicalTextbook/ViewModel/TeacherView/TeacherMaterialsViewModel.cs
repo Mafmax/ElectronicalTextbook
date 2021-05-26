@@ -52,11 +52,7 @@ namespace ElectronicalTextbook.ViewModel.TeacherView
             OpenViewer(viewer);
         }
 
-        private void OnMaterialProcessed(object sender, RoutedEventArgs e)
-        {
-            Fill();
-        }
-
+        
         protected override IEnumerable<Button> CreateRightButtons()
         {
             viewButton = new Button();
@@ -64,13 +60,7 @@ namespace ElectronicalTextbook.ViewModel.TeacherView
             viewButton.Content = "Посмотреть";
             yield return viewButton;
         }
-        private void OpenViewer(MaterialViewer viewer)
-        {
-            var materialViewModel = new ViewMaterialViewModel(window)
-           .Init(viewer)
-           .SetCallback(OnMaterialProcessed);
-            materialViewModel.Open();
-        }
+        
         private void OnViewButtonClick(object sender, RoutedEventArgs e)
         {
             var material = window.rightItems.SelectedItem as Material;

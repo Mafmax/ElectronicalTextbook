@@ -51,6 +51,26 @@ namespace ElectronicalTextbook
             }
         }
 
+        internal static void RegisterCompletedMaterial(Material material, Student student)
+        {
+            using (var context = new ETContext())
+            {
+                context.Materials
+                    .Include(x => x.StudentsWhoComplete)
+                    .Include(x => x.StudentsWhoNotComplete)
+                    .Load();
+
+                material = context.Materials.Find(material.Theme);
+                student = context.Students.Find(student.Id);
+
+                material.StudentsWhoNotComplete.Remove(student);
+                material.StudentsWhoComplete.Add(student);
+                student.CompletedMaterials.Add(material);
+                student.NotCompletedMaterials.Remove(material);
+                context.SaveChanges();
+            }
+        }
+
         internal static IEnumerable<string> GetUserNames()
         {
             using (var context = new ETContext())
@@ -148,11 +168,15 @@ namespace ElectronicalTextbook
         {
             using (var context = new ETContext())
             {
-            context.Specialities.Load();
+                context.Specialities.Load();
                 context.InfoBlocks.Load();
-                user = context.FindUserByLogin(user.Username);
+                context.Materials.Load();
+                context.Teachers.Load();
+                context.Students.Load();
+                context.Materials.Include(x => x.StudentsWhoComplete).Load();
                 if (user is Teacher teacher)
                 {
+                    teacher = context.Teachers.Find(user.Id);
                     var materials = context.Materials
                         .Where(x => x.Teacher.Id != teacher.Id);
                     foreach (var item in materials)
@@ -162,6 +186,7 @@ namespace ElectronicalTextbook
                 }
                 if (user is Student student)
                 {
+                    student = context.Students.Find(user.Id);
                     foreach (var item in student.CompletedMaterials)
                     {
                         yield return item;
@@ -175,10 +200,13 @@ namespace ElectronicalTextbook
             {
                 context.InfoBlocks.Load();
                 context.Specialities.Load();
-                user = context.FindUserByLogin(user.Username);
+                context.Materials.Load();
+                context.Teachers.Load();
+                var studs = context.Students.ToList();
+                var mats = context.Materials.Include(x => x.StudentsWhoNotComplete).ToList();
                 if (user is Teacher teacher)
                 {
-                    context.Materials.Load();
+                    teacher = context.Teachers.Find(user.Id);
                     foreach (var item in teacher.Materials)
                     {
                         yield return item;
@@ -186,6 +214,7 @@ namespace ElectronicalTextbook
                 }
                 if (user is Student student)
                 {
+                    student = context.Students.Find(user.Id);
                     foreach (var item in student.NotCompletedMaterials)
                     {
                         yield return item;
@@ -296,14 +325,16 @@ namespace ElectronicalTextbook
             using (var context = new ETContext())
             {
                 var allStudents = context.Students.ToList();
-                var students = allStudents.Where(x => x._ClassNumber.Equals(classNumber)).ToList();
+                var students = allStudents
+                    .Where(x => x._ClassNumber.Equals(classNumber))
+                    .ToList();
                 foreach (var student in students)
                 {
                     if (classChar.Equals("X"))
                     {
                         yield return student;
                     }
-                    else if (student._ClassSymbol.Equals(classChar))
+                    else if (student._ClassSymbol.ToLower().Equals(classChar.ToLower()))
                     {
                         yield return student;
                     }

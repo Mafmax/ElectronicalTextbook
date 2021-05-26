@@ -92,14 +92,13 @@ namespace ElectronicalTextbook.Model.Controllers
                 Grid.SetRowSpan(viewer, 2);
             }
             content = new StackPanel();
-            content.Background = Brushes.Aqua;
             viewer.Content = content;
+            saveButton = new Button();
             foreach (var item in material.Content)
             {
                 AddInfoBlock(item);
             }
 
-            saveButton = new Button();
             Grid.SetRow(saveButton, 2);
             saveButton.Content = GetButtonContent();
             saveButton.Click += OnSaveButtonClick;
@@ -111,7 +110,7 @@ namespace ElectronicalTextbook.Model.Controllers
         {
             if (viewMode == MaterialViewMode.View)
             {
-                return "Выйти";
+                return "Закончить просмотр";
             }
             else
             {
@@ -246,9 +245,14 @@ namespace ElectronicalTextbook.Model.Controllers
             }
             ReplaceBlocks(currentIndex, currentIndex - 1);
         }
-
+     
         private void OnSaveButtonClick(object sender, RoutedEventArgs e)
         {
+            if (viewMode == MaterialViewMode.View)
+            {
+                Close(false);
+                return;
+            }
             var dlg = new ConfigureMaterialDialog();
             material.Content = blocks;
             dlg.Theme = material.Theme ?? "Тема";

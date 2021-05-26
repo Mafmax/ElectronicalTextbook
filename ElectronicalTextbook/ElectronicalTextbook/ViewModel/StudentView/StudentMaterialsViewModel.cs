@@ -16,9 +16,10 @@ namespace ElectronicalTextbook.ViewModel.StudentView
         private Button rightViewButton;
         public StudentMaterialsViewModel(Window caller) : base(caller)
         {
+
         }
 
-        protected override string LeftLabel =>"Необходимо пройти";
+        protected override string LeftLabel => "Необходимо пройти";
 
         protected override string RightLabel => "Пройденные";
 
@@ -34,10 +35,15 @@ namespace ElectronicalTextbook.ViewModel.StudentView
         {
             var material = window.leftItems.SelectedItem as Material;
             if (material is null) return;
-            var viewer = new MaterialViewer(material,MaterialViewMode.View);
-            throw new NotImplementedException();
-        }
+            var viewer = new MaterialViewer(material, MaterialViewMode.View);
+            DataBaseProcessor.RegisterCompletedMaterial(material, User as Student);
+            OpenViewer(viewer);
 
+        }
+        protected override void OnMaterialProcessed(object sender, RoutedEventArgs e)
+        {
+            base.OnMaterialProcessed(sender, e);
+        }
         protected override IEnumerable<Button> CreateRightButtons()
         {
             rightViewButton = new Button();
@@ -50,8 +56,8 @@ namespace ElectronicalTextbook.ViewModel.StudentView
         {
             var material = window.rightItems.SelectedItem as Material;
             if (material is null) return;
-            var viewer = new MaterialViewer(material,MaterialViewMode.View);
-            throw new NotImplementedException();
+            var viewer = new MaterialViewer(material, MaterialViewMode.View);
+            OpenViewer(viewer);
         }
     }
 }

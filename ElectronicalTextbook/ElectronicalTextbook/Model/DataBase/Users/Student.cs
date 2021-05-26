@@ -13,7 +13,7 @@ namespace ElectronicalTextbook.Model.DataBase
 
    
         [Column("Класс")]
-        internal string Class
+        public string Class
         {
             get
             {

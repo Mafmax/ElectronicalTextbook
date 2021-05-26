@@ -1,4 +1,5 @@
-﻿using ElectronicalTextbook.Model.DataBase;
+﻿using ElectronicalTextbook.Model.Controllers;
+using ElectronicalTextbook.Model.DataBase;
 using ElectronicalTextbook.View;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace ElectronicalTextbook.ViewModel
         public User User { get; protected set; }
         protected MaterialsViewModel(Window caller) : base(caller)
         {
+           
         }
 
         public override CalledViewModel<LeftRightItemsWindow> Init(object value)
         {
             User = value as User;
+            window.Title = $"{User} - Материалы";
             return base.Init(value);
         }
         protected override IEnumerable<object> FillLeft()
@@ -30,6 +33,17 @@ namespace ElectronicalTextbook.ViewModel
         protected override IEnumerable<object> FillRight()
         {
             return DataBaseProcessor.GetOtherMaterials(User);
+        }
+        protected void OpenViewer(MaterialViewer viewer)
+        {
+            var materialViewModel = new ViewMaterialViewModel(window)
+           .Init(viewer)
+           .SetCallback(OnMaterialProcessed);
+            materialViewModel.Open();
+        }
+        protected virtual void OnMaterialProcessed(object sender, RoutedEventArgs e)
+        {
+            Fill();
         }
     }
 }

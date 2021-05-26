@@ -101,6 +101,10 @@
     <Compile Include="Migrations\202105250810204_MaterialHasSingleSpecialityNow.Designer.cs">
       <DependentUpon>202105250810204_MaterialHasSingleSpecialityNow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105260319313_ClassAdded.cs" />
+    <Compile Include="Migrations\202105260319313_ClassAdded.Designer.cs">
+      <DependentUpon>202105260319313_ClassAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Controllers\MaterialViewer.cs" />
     <Compile Include="Model\Controllers\MaterialViewMode.cs" />
@@ -286,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105250810204_MaterialHasSingleSpecialityNow.resx">
       <DependentUpon>202105250810204_MaterialHasSingleSpecialityNow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105260319313_ClassAdded.resx">
+      <DependentUpon>202105260319313_ClassAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
